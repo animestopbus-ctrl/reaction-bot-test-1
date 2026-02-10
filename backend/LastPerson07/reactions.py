@@ -2,6 +2,7 @@ import asyncio
 import random
 from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
+import os
 from pyrogram import Client, filters, idle
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait, RPCError
@@ -33,6 +34,8 @@ class TelegramBot:
             bot_token=settings.TELEGRAM_BOT_TOKEN,
             workdir="sessions",
         )
+       
+        os.makedirs("sessions", exist_ok=True)
        
         await self.app.start()
         self.is_running = True
