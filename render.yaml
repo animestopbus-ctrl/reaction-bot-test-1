@@ -1,0 +1,38 @@
+services:
+  # Backend API Service
+  - type: web
+    name: telegram-reaction-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && python main.py
+    envVars:
+      - key: MONGODB_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: TELEGRAM_API_ID
+        sync: false
+      - key: TELEGRAM_API_HASH
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: OWNER_TELEGRAM_ID
+        sync: false
+      - key: OWNER_USERNAME
+        value: admin
+      - key: OWNER_PASSWORD
+        sync: false
+      - key: PORT
+        value: 8000
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: false
+    healthCheckPath: /health
+
+databases:
+  # Note: Use MongoDB Atlas instead
+  # Free tier: https://mongodb.com/cloud/atlas
+  # Add connection string to MONGODB_URL env var
